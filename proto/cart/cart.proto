@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package cart;
+
+option go_package = "cart.v1.crt";
+
+service Cart {
+  rpc AddToCart (AddToCartRequest) returns (AddToCartResponse);
+  rpc DelFromCart (DelFromCartRequest) returns (DelFromCartResponse);
+  rpc GetCart (GetCartRequest) returns (GetCartResponse);
+}
+
+enum OperationStatus {
+  STATUS_OK = 0;
+  STATUS_INVALID_TOY = 1;
+  STATUS_INVALID_USER = 2;
+  STATUS_INVALID_QTY = 3;
+  STATUS_INTERNAL_ERROR = 4;
+  STATUS_CART_EMPTY = 5;
+  STATUS_TOY_NOT_IN_CART = 6;
+  STATUS_UNAUTHORIZED = 7;
+  STATUS_DUPLICATE_ITEM = 8;
+}
+
+message CartItem {
+  int64 toy_id = 1;
+  int32 quantity = 2;
+}
+
+message AddToCartRequest {
+  CartItem toy = 1;
+}
+
+message AddToCartResponse {
+  OperationStatus opStatus = 1;
+  string message = 2;
+}
+
+message DelFromCartRequest {
+  int64 toy_id = 1;
+}
+
+message DelFromCartResponse {
+  OperationStatus opStatus = 1;
+  string message = 2;
+}
+
+message GetCartRequest{}
+
+message GetCartResponse{
+  repeated CartItem items = 1;
+  int32 total_items = 2;
+  int32 total_quantity = 3;
+}
