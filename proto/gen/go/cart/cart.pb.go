@@ -7,6 +7,7 @@
 package cart_v1_crt
 
 import (
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -433,7 +434,7 @@ var File_cart_cart_proto protoreflect.FileDescriptor
 
 const file_cart_cart_proto_rawDesc = "" +
 	"\n" +
-	"\x0fcart/cart.proto\x12\x04cart\x1a\x1cgoogle/api/annotations.proto\"=\n" +
+	"\x0fcart/cart.proto\x12\x04cart\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"=\n" +
 	"\bCartItem\x12\x15\n" +
 	"\x06toy_id\x18\x01 \x01(\x03R\x05toyId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x05R\bquantity\"4\n" +
@@ -462,16 +463,18 @@ const file_cart_cart_proto_rawDesc = "" +
 	"\x11STATUS_CART_EMPTY\x10\x05\x12\x1a\n" +
 	"\x16STATUS_TOY_NOT_IN_CART\x10\x06\x12\x17\n" +
 	"\x13STATUS_UNAUTHORIZED\x10\a\x12\x19\n" +
-	"\x15STATUS_DUPLICATE_ITEM\x10\b2\x84\x02\n" +
-	"\x04Cart\x12S\n" +
-	"\tAddToCart\x12\x16.cart.AddToCartRequest\x1a\x17.cart.AddToCartResponse\"\x15\x82\xd3\xe4\x93\x02\x0f:\x03toy\"\b/v1/cart\x12]\n" +
-	"\vDelFromCart\x12\x18.cart.DelFromCartRequest\x1a\x19.cart.DelFromCartResponse\"\x19\x82\xd3\xe4\x93\x02\x13*\x11/v1/cart/{toy_id}\x12H\n" +
-	"\aGetCart\x12\x14.cart.GetCartRequest\x1a\x15.cart.GetCartResponse\"\x10\x82\xd3\xe4\x93\x02\n" +
+	"\x15STATUS_DUPLICATE_ITEM\x10\b2\xde\x03\n" +
+	"\x04Cart\x12\x92\x01\n" +
+	"\tAddToCart\x12\x16.cart.AddToCartRequest\x1a\x17.cart.AddToCartResponse\"T\x92A<\x12\x11Add a toy to cart\x1a'Adds a toy to the user's shopping cart.\x82\xd3\xe4\x93\x02\x0f:\x03toy\"\b/v1/cart\x12\xa7\x01\n" +
+	"\vDelFromCart\x12\x18.cart.DelFromCartRequest\x1a\x19.cart.DelFromCartResponse\"c\x92AG\x12\x16Remove a toy from cart\x1a-Deletes a toy from the user's cart by toy ID.\x82\xd3\xe4\x93\x02\x13*\x11/v1/cart/{toy_id}\x12\x96\x01\n" +
+	"\aGetCart\x12\x14.cart.GetCartRequest\x1a\x15.cart.GetCartResponse\"^\x92AK\x12\x11Get cart contents\x1a6Retrieves the current list of toys in the user's cart.\x82\xd3\xe4\x93\x02\n" +
 	"\x12\b/v1/cart2\xc7\x01\n" +
 	"\vCartService\x12<\n" +
 	"\tAddToCart\x12\x16.cart.AddToCartRequest\x1a\x17.cart.AddToCartResponse\x12B\n" +
 	"\vDelFromCart\x12\x18.cart.DelFromCartRequest\x1a\x19.cart.DelFromCartResponse\x126\n" +
-	"\aGetCart\x12\x14.cart.GetCartRequest\x1a\x15.cart.GetCartResponseB\rZ\vcart.v1.crtb\x06proto3"
+	"\aGetCart\x12\x14.cart.GetCartRequest\x1a\x15.cart.GetCartResponseB\xea\x01\x92A\xd9\x01\x12\xaf\x01\n" +
+	"\bCart API\x12^API for managing shopping cart actions such as adding, removing, and viewing toys in the cart.\">\n" +
+	"\fSupport Team\x12\x16https://yourdomain.com\x1a\x16support@yourdomain.com2\x031.0*\x01\x022\x10application/json:\x10application/jsonZ\vcart.v1.crtb\x06proto3"
 
 var (
 	file_cart_cart_proto_rawDescOnce sync.Once

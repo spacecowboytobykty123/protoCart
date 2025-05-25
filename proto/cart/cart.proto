@@ -4,7 +4,23 @@ package cart;
 
 option go_package = "cart.v1.crt";
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Cart API";
+    version: "1.0";
+    description: "API for managing shopping cart actions such as adding, removing, and viewing toys in the cart.";
+    contact: {
+      name: "Support Team";
+      url: "https://yourdomain.com";
+      email: "support@yourdomain.com";
+    }
+  };
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+};
 
 service Cart {
   rpc AddToCart (AddToCartRequest) returns (AddToCartResponse) {
@@ -12,17 +28,29 @@ service Cart {
       post: "/v1/cart"
       body: "toy"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Add a toy to cart"
+      description: "Adds a toy to the user's shopping cart."
+    };
   }
 
   rpc DelFromCart (DelFromCartRequest) returns (DelFromCartResponse) {
     option (google.api.http) = {
       delete: "/v1/cart/{toy_id}"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Remove a toy from cart"
+      description: "Deletes a toy from the user's cart by toy ID."
+    };
   }
 
   rpc GetCart (GetCartRequest) returns (GetCartResponse) {
     option (google.api.http) = {
       get: "/v1/cart"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get cart contents"
+      description: "Retrieves the current list of toys in the user's cart."
     };
   }
 }

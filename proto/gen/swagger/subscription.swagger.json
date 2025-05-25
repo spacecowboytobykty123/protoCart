@@ -1,0 +1,221 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Cart API",
+    "description": "API for managing shopping cart actions such as adding, removing, and viewing toys in the cart.",
+    "version": "1.0",
+    "contact": {
+      "name": "Support Team",
+      "url": "https://yourdomain.com",
+      "email": "support@yourdomain.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Cart"
+    },
+    {
+      "name": "CartService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/cart": {
+      "get": {
+        "summary": "Get cart contents",
+        "description": "Retrieves the current list of toys in the user's cart.",
+        "operationId": "Cart_GetCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cartGetCartResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Cart"
+        ]
+      },
+      "post": {
+        "summary": "Add a toy to cart",
+        "description": "Adds a toy to the user's shopping cart.",
+        "operationId": "Cart_AddToCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cartAddToCartResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toy",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/cartCartItem"
+            }
+          }
+        ],
+        "tags": [
+          "Cart"
+        ]
+      }
+    },
+    "/v1/cart/{toyId}": {
+      "delete": {
+        "summary": "Remove a toy from cart",
+        "description": "Deletes a toy from the user's cart by toy ID.",
+        "operationId": "Cart_DelFromCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/cartDelFromCartResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "toyId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Cart"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "cartAddToCartResponse": {
+      "type": "object",
+      "properties": {
+        "opStatus": {
+          "$ref": "#/definitions/cartOperationStatus"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "cartCartItem": {
+      "type": "object",
+      "properties": {
+        "toyId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "cartDelFromCartResponse": {
+      "type": "object",
+      "properties": {
+        "opStatus": {
+          "$ref": "#/definitions/cartOperationStatus"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "cartGetCartResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/cartCartItem"
+          }
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalQuantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "cartOperationStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_OK",
+        "STATUS_INVALID_TOY",
+        "STATUS_INVALID_USER",
+        "STATUS_INVALID_QTY",
+        "STATUS_INTERNAL_ERROR",
+        "STATUS_CART_EMPTY",
+        "STATUS_TOY_NOT_IN_CART",
+        "STATUS_UNAUTHORIZED",
+        "STATUS_DUPLICATE_ITEM"
+      ],
+      "default": "STATUS_OK"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
